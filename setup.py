@@ -11,12 +11,14 @@ setuptools.setup(
     },
     install_requires=[
         "alembic",
-        "cymysql"
+        "cymysql",
+        "flask",
+        "flask_sqlalchemy"
     ],
     license="MIT",
-    name="metadata",
+    name="metadata_database",
     package_data={
-        "metadata": [
+        "metadata_database": [
             "data/annotations.csv",
             "data/annotators.csv",
             "data/categories.csv",
@@ -35,6 +37,6 @@ setuptools.setup(
             "tests"
         ]
     ),
-    url="https://github.com/imagi-ng/metadata-database",
+    url="https://github.com/imagi-ng/metadata_database-database",
     version="0.1.0"
 )

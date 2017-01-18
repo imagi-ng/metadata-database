@@ -1,4 +1,3 @@
-import sqlalchemy
 import sqlalchemy.types
 import uuid
 

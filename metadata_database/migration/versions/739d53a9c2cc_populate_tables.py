@@ -1,6 +1,6 @@
 import alembic.op
 import csv
-import metadata.type
+import metadata_database.type
 import pkg_resources
 import sqlalchemy
 
@@ -14,7 +14,7 @@ revision = "739d53a9c2cc"
 
 
 def populate(pathname, table):
-    pathname = pkg_resources.resource_filename("metadata", pathname)
+    pathname = pkg_resources.resource_filename("metadata_database", pathname)
 
     with open(pathname) as data:
         records = list(csv.DictReader(data))
@@ -25,49 +25,49 @@ def populate(pathname, table):
 def upgrade():
     channels = sqlalchemy.sql.table(
         "channels",
-        sqlalchemy.sql.column("id", metadata.type.UUID),
-        sqlalchemy.sql.column("image_id", metadata.type.UUID)
+        sqlalchemy.sql.column("id", metadata_database.type.UUID),
+        sqlalchemy.sql.column("image_id", metadata_database.type.UUID)
     )
 
     experiments = sqlalchemy.sql.table(
         "experiments",
-        sqlalchemy.sql.column("id", metadata.type.UUID)
+        sqlalchemy.sql.column("id", metadata_database.type.UUID)
     )
 
     imageable = sqlalchemy.sql.table(
         "imageable",
-        sqlalchemy.sql.column("id", metadata.type.UUID),
+        sqlalchemy.sql.column("id", metadata_database.type.UUID),
         sqlalchemy.sql.column("type", sqlalchemy.String)
     )
 
     images = sqlalchemy.sql.table(
         "images",
-        sqlalchemy.sql.column("id", metadata.type.UUID),
-        sqlalchemy.sql.column("imageable_id", metadata.type.UUID)
+        sqlalchemy.sql.column("id", metadata_database.type.UUID),
+        sqlalchemy.sql.column("imageable_id", metadata_database.type.UUID)
     )
 
     plates = sqlalchemy.sql.table(
         "plates",
-        sqlalchemy.sql.column("id", metadata.type.UUID),
-        sqlalchemy.sql.column("experiment_id", metadata.type.UUID)
+        sqlalchemy.sql.column("id", metadata_database.type.UUID),
+        sqlalchemy.sql.column("experiment_id", metadata_database.type.UUID)
     )
 
     stainable = sqlalchemy.sql.table(
         "stainable",
-        sqlalchemy.sql.column("channel_id", metadata.type.UUID),
-        sqlalchemy.sql.column("stain_id", metadata.type.UUID)
+        sqlalchemy.sql.column("channel_id", metadata_database.type.UUID),
+        sqlalchemy.sql.column("stain_id", metadata_database.type.UUID)
     )
 
     stains = sqlalchemy.sql.table(
         "stains",
-        sqlalchemy.sql.column("id", metadata.type.UUID),
+        sqlalchemy.sql.column("id", metadata_database.type.UUID),
         sqlalchemy.sql.column("name", sqlalchemy.String)
     )
 
     wells = sqlalchemy.sql.table(
         "wells",
-        sqlalchemy.sql.column("id", metadata.type.UUID),
-        sqlalchemy.sql.column("plate_id", metadata.type.UUID),
+        sqlalchemy.sql.column("id", metadata_database.type.UUID),
+        sqlalchemy.sql.column("plate_id", metadata_database.type.UUID),
         sqlalchemy.sql.column("x", sqlalchemy.String),
         sqlalchemy.sql.column("y", sqlalchemy.String)
     )

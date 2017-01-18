@@ -1,6 +1,6 @@
 before_script:
-  - mysql -e 'CREATE DATABASE metadata;'
-  - travis_wait alembic upgrade head
+  - mysql -e 'CREATE DATABASE metadata_database;'
+  - travis_wait 30 alembic upgrade head
 install:
   - pip install -e .[test]
 language: python
