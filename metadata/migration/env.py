@@ -36,10 +36,7 @@ def run_migrations_offline():
     script output.
 
     """
-    if os.getenv("TRAVIS"):
-        url = "mysql+cymysql://root:@127.0.0.1/metadata"
-    else:
-        url = config.get_main_option("sqlalchemy.url")
+    url = config.get_main_option("sqlalchemy.url")
 
     alembic.context.configure(
         url=url,
