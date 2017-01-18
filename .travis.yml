@@ -1,3 +1,10 @@
-install: pip install -e .[test]
+before_script:
+  - mysql -e 'CREATE DATABASE metadata;'
+  - alembic upgrade head
+install:
+  - pip install -e .[test]
 language: python
-script: py.test
+script:
+  - py.test
+services:
+  - mysql

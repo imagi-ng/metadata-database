@@ -1,4 +1,5 @@
 import alembic
+import os
 import sqlalchemy
 import sqlalchemy.pool
 import logging.config
@@ -35,7 +36,10 @@ def run_migrations_offline():
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    if os.getenv("TRAVIS"):
+        url = "mysql+cymysql://root:@127.0.0.1/metadata"
+    else:
+        url = config.get_main_option("sqlalchemy.url")
 
     alembic.context.configure(
         url=url,
@@ -57,8 +61,7 @@ def run_migrations_online():
     connectable = sqlalchemy.engine_from_config(
         config.get_section(config.config_ini_section),
         prefix='sqlalchemy.',
-        poolclass=sqlalchemy.pool.NullPool
-    )
+        poolclass=sqlalchemy.pool.NullPool)
 
     with connectable.connect() as connection:
         alembic.context.configure(
